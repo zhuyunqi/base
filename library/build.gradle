@@ -1,0 +1,53 @@
+apply plugin: 'com.android.library'
+apply plugin: 'com.novoda.bintray-release'
+
+android {
+    compileSdkVersion 28
+
+    defaultConfig {
+        minSdkVersion 15
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+
+}
+
+// 上传命令
+// ./gradlew clean build bintrayUpload
+// -PbintrayUser=zhuyunqi
+// -PbintrayKey=b3eb93b01720a7d7a52255ebc5b7e29193ccac8a
+// -PdryRun=false
+publish {
+    userOrg = 'zhuyunqi'  //bintray注册的用户名（不是邮箱）
+    groupId = 'com.zyq.base'
+    artifactId = 'baselibrary'  //项目名称
+    publishVersion = '1.0.0'  //版本号
+    desc = 'base framework'  //项目描述。可空。
+    website = 'https://github.com/zhuyunqi/network'  //项目地址，一般填github地址。可空。
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    compileOnly 'com.android.support:recyclerview-v7:28.0.0'
+    compileOnly 'com.android.support:appcompat-v7:28.0.0'
+}
